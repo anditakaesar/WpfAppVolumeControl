@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="x64\**" />
+    <EmbeddedResource Remove="x64\**" />
+    <None Remove="x64\**" />
+    <Page Remove="x64\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="dlls\" />
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="xcopy /y /d  &quot;$(ProjectDir)dlls\*.dll&quot; &quot;$(ProjectDir)$(OutDir)&quot;" />
+  </Target>
+
+</Project>
